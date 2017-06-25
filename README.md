@@ -21,3 +21,6 @@ sudo apt install zsh wget curl git vim
 ```sh
 wget -qO- https://raw.githubusercontent.com/PinLin/.shconf/master/install.sh | zsh
 ```
+> You need to exit `zsh` when `oh-my-zsh` installed.
+
+Download and install the font-type file in [`font`](https://github.com/PinLin/.shconf/master/font) directory.
