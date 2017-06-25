@@ -28,7 +28,9 @@ cd ~/.shconf
 
 # setup vim
 if ! [ -f ~/.vimrc.bak ]; then
-    if [ -f ~/.vimrc ]; then mv ~/.vimrc ~/.vimrc.bak fi
+    if [ -f ~/.vimrc ]; then 
+        mv ~/.vimrc ~/.vimrc.bak 
+    fi
 fi
 echo 'source ~/.shconf/vim/sample.vimrc' > ~/.vimrc
 
@@ -37,7 +39,9 @@ echo 'source ~/.shconf/vim/sample.vimrc' > ~/.vimrc
 # install oh-my-zsh and configure
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 if ! [ -f ~/.zshrc.bak ]; then
-    if [ -f ~/.zshrc ]; then mv ~/.zshrc ~/.zshrc.bak fi
+    if [ -f ~/.zshrc ]; then 
+        mv ~/.zshrc ~/.zshrc.bak 
+    fi
 fi
 echo 'source ~/.shconf/zsh/sample.zshrc' > ~/.zshrc
 # install zsh-autosuggestions
