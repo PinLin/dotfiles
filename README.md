@@ -19,7 +19,7 @@ sudo apt install zsh wget curl git vim
 ## Install
 
 ```sh
-wget -qO- https://raw.githubusercontent.com/PinLin/.shconf/master/install.sh | zsh
+wget -qO- https://raw.githubusercontent.com/PinLin/.shconf/master/install.sh | bash
 ```
 > You need to exit `zsh` when `oh-my-zsh` installed.
 
