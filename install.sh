@@ -37,7 +37,7 @@ echo 'source ~/.shconf/vim/sample.vimrc' > ~/.vimrc
 
 # setup zsh
 # install oh-my-zsh and configure
-chsh -s `which zsh`
+sudo chsh -s `which zsh` $USER
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 if ! [ -f ~/.zshrc.bak ]; then
     if [ -f ~/.zshrc ]; then 
@@ -54,14 +54,4 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 if ! command -v pause 1>/dev/null; then
     alias pause="$HOME/.pause/bin/pause"
     wget -qO- https://raw.githubusercontent.com/PinLin/EHG/master/pause/install.sh | bash
-fi
-# nvm
-if ! command -v nvm 1>/dev/null; then
-    alias nvm='echo Installed! Please reload your shell.'
-    wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
-fi
-# pyenv
-if ! command -v pyenv 1>/dev/null; then
-    alias nvm='echo Installed! Please reload your shell.'
-    curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
 fi
