@@ -4,16 +4,12 @@ This is my shell configuration.
 
 ## Requirements
 
-for `macOS`:
+Use **Package manager** to install:`wget`, `git`, `vim`, `zsh`.
+
+And There is a **Install Script** of [`oh-my-zsh`](http://ohmyz.sh):
 
 ```sh
-brew install zsh wget curl git vim
-```
-
-for `Debian` and `Ubuntu`:
-
-```sh
-sudo apt install zsh wget curl git vim
+sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 ```
 
 ## Install
@@ -21,6 +17,4 @@ sudo apt install zsh wget curl git vim
 ```sh
 wget -qO- https://raw.githubusercontent.com/PinLin/.shconf/master/install.sh | bash
 ```
-> You need to exit `zsh` when `oh-my-zsh` installed.
-
-Download and install the font-type file in [`font`](https://github.com/PinLin/.shconf/master/font) directory.
+You need to install the font-type which in [`font`](https://github.com/PinLin/.shconf/master/font) directory.

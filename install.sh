@@ -1,6 +1,9 @@
+# set constant
+repo='.shconf'
+
 # check reqiurements
 fail=0
-for app in "wget" "curl" "git" "vim"; do
+for app in "git" "vim" "zsh"; do
     if ! command -v $app 1>/dev/null; then 
         if [ $fail == 0 ]; then 
             echo 
@@ -16,15 +19,22 @@ if [ $fail == 1 ]; then
     echo ' before run this script.'
     exit 1
 fi
+if ! [ -d ~/.oh-my-zsh ]; then
+    echo 'You should install `oh-my-zsh` before run this script.'
+    exit 1
+fi
 
 # clone into computer
-git clone https://github.com/PinLin/.shconf ~/.shconf
+if [ -d ~/$repo ]; then
+    rm -rf ~/$repo
+fi
+git clone https://github.com/PinLin/$repo ~/$repo
 if [ $? != 0 ]; then
     echo 
-    echo 'Error occurred when cloning, please confirm your Network.'
+    echo 'Cloning Error, maybe you should check your network connection.'
     exit 2
 fi
-cd ~/.shconf
+cd ~/$repo
 
 # setup vim
 if ! [ -f ~/.vimrc.bak ]; then
@@ -32,19 +42,16 @@ if ! [ -f ~/.vimrc.bak ]; then
         mv ~/.vimrc ~/.vimrc.bak 
     fi
 fi
-echo 'source ~/.shconf/vim/sample.vimrc' > ~/.vimrc
-
+echo "source ~/$repo/vim/sample.vimrc" > ~/.vimrc
 
 # setup zsh
-# install oh-my-zsh and configure
-sudo chsh -s `which zsh` $USER
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# backup old configure
 if ! [ -f ~/.zshrc.bak ]; then
     if [ -f ~/.zshrc ]; then 
         mv ~/.zshrc ~/.zshrc.bak 
     fi
 fi
-echo 'source ~/.shconf/zsh/sample.zshrc' > ~/.zshrc
+echo "source ~/$repo/zsh/sample.zshrc" > ~/.zshrc
 # install zsh-autosuggestions
 git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 # install zsh-syntax-highlighting
