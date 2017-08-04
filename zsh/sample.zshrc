@@ -89,6 +89,7 @@ source $ZSH/oh-my-zsh.sh
 alias la='ls -a'
 alias ll='ls -al'
 alias poke='touch'
+alias adb='~/Library/Android/sdk/platform-tools/adb'
 
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
