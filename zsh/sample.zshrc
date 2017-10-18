@@ -90,7 +90,6 @@ alias la='ls -a'
 alias ll='ls -al'
 alias poke='touch'
 alias emacs='vim'
-alias adb='~/Library/Android/sdk/platform-tools/adb'
 
 function weather {
     if [ "$1" != "" ]; then
