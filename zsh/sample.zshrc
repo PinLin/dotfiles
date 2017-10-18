@@ -92,6 +92,12 @@ alias poke='touch'
 alias emacs='vim'
 alias adb='~/Library/Android/sdk/platform-tools/adb'
 
+function weather {
+	if [ "$1" != "" ]; then
+		curl wttr.in/~$1
+	fi
+}
+
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
