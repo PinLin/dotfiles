@@ -93,9 +93,11 @@ alias emacs='vim'
 alias adb='~/Library/Android/sdk/platform-tools/adb'
 
 function weather {
-	if [ "$1" != "" ]; then
-		curl wttr.in/~$1
-	fi
+    if [ "$1" != "" ]; then
+        curl wttr.in/~$1
+    else
+        echo 'Please input a city name.'
+    fi
 }
 
 # zsh-autosuggestions
