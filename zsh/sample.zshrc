@@ -86,10 +86,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias l='ls -l'
+alias ll='ls -alh'
 alias la='ls -a'
-alias ll='ls -al'
 alias poke='touch'
-alias emacs='vim'
 
 function weather {
     if [ "$1" != "" ]; then
