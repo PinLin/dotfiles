@@ -86,7 +86,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias l='ls -l'
+alias l='ls -lh'
 alias ll='ls -alh'
 alias la='ls -a'
 alias poke='touch'
