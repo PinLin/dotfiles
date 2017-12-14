@@ -10,7 +10,7 @@ for app in "git" "vim" "zsh"; do
     fi
 done
 # files
-for app in "~/.oh-my-zsh"; do
+for app in ~/.oh-my-zsh; do
     if ! [ -d $app ]; then
         echo 'Could not find `'$app'`.'
         exit 1
