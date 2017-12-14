@@ -102,5 +102,3 @@ function weather {
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
-# pause
-export PATH=$HOME/.pause/bin:$PATH
