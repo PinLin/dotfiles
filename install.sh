@@ -30,6 +30,14 @@ fi
 if command -v zsh >/dev/null; then
     if [ -d ~/.oh-my-zsh ]; then
         echo "source ~/$repo/zsh/sample.zshrc" >> ~/.zshrc
+        # install zsh-autosuggestions
+        if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
+            git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        fi
+        # install zsh-syntax-highlighting
+        if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        fi
     else
         echo Could not find `oh-my-zsh`.
     fi
@@ -37,7 +45,3 @@ else
     echo Could not find `zsh`.
 fi
 
-# install zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# install zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
