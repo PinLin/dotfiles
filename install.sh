@@ -3,7 +3,7 @@ repo='.shconf'
 
 # check reqirements
 for app in git; do
-    if ! command -v $app >/dev/null; then
+    if ! command -v $app > /dev/null; then
         echo 'Could not find `'$app'`.'
         exit 1
     fi
@@ -20,14 +20,14 @@ if [ $? != 0 ]; then
 fi
 
 # setup vim
-if command -v vim >/dev/null; then
+if command -v vim > /dev/null; then
     echo "source ~/$repo/vim/sample.vimrc" >> ~/.vimrc
 else
     echo Could not find `vim`.
 fi
 
 # setup zsh
-if command -v zsh >/dev/null; then
+if command -v zsh > /dev/null; then
     if [ -d ~/.oh-my-zsh ]; then
         echo "source ~/$repo/zsh/sample.zshrc" >> ~/.zshrc
         # install zsh-autosuggestions
