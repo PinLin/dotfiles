@@ -27,6 +27,14 @@ else
     echo Could not find `vim`.
 fi
 
+# setup tmux
+if command -v tmux > /dev/null; then
+    mv ~/.tmux.conf ~/.tmux.conf.bak
+    echo "source ~/$repo/tmux/sample.tmux.conf" >> ~/.tmux.conf
+else
+    echo Could not find `tmux`.
+fi
+
 # setup zsh
 if command -v zsh > /dev/null; then
     if [ -d ~/.oh-my-zsh ]; then

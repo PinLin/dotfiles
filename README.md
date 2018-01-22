@@ -8,6 +8,8 @@ This is my shell config.
 
 + `vim`: a useful text editor on terminal.
 
++ `tmux`: a terminal multiplexer.
+
 + `zsh`: a fashion command line shell.
 
 + [`oh-my-zsh`](http://ohmyz.sh): a amazing `zsh` framework.
