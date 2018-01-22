@@ -6,7 +6,7 @@ This is my shell config.
 
 + `git`: a powerful version control tool.
 
-+ `vim `: a useful text editor on terminal.
++ `vim`: a useful text editor on terminal.
 
 + `zsh`: a fashion command line shell.
 

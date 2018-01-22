@@ -4,7 +4,7 @@ repo='.shconf'
 # check reqirements
 for app in git; do
     if ! command -v $app > /dev/null; then
-        echo 'Could not find `'$app'`.'
+        echo 'Could not find `'$app'`, installation stopped.'
         exit 1
     fi
 done
@@ -21,6 +21,7 @@ fi
 
 # setup vim
 if command -v vim > /dev/null; then
+    mv ~/.vimrc ~/.vimrc.bak
     echo "source ~/$repo/vim/sample.vimrc" >> ~/.vimrc
 else
     echo Could not find `vim`.
@@ -29,6 +30,7 @@ fi
 # setup zsh
 if command -v zsh > /dev/null; then
     if [ -d ~/.oh-my-zsh ]; then
+        mv ~/.zshrc ~/.zshrc.bak
         echo "source ~/$repo/zsh/sample.zshrc" >> ~/.zshrc
         # install zsh-autosuggestions
         if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
