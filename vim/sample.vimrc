@@ -23,6 +23,8 @@ set showcmd
 set showmode
 set statusline=[%{expand('%:p')}][%{strlen(&fenc)?&fenc:&enc},\ %{&ff},\ %{strlen(&filetype)?&filetype:'plain'}]%{FileSize()}%{IsBinary()}%=%c,%l/%L\ [%3p%%]
 
+autocmd FileType make setlocal noexpandtab
+
 function IsBinary()
     if (&binary == 0)
         return ""
