@@ -67,3 +67,6 @@ else
     echo Could not find '`'zsh'`'.
 fi
 
+# finished
+echo
+echo Done! $repo_name was installed.
