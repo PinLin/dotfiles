@@ -4,15 +4,18 @@ This is my shell config.
 
 ## Requirements
 
-+ `git`
-+ `vim`
-+ `tmux`
-+ `zsh`
-+ [`oh-my-zsh`](http://ohmyz.sh)
++ `git`, `vim`, `tmux`, `zsh`
+    ```sh
+    # Debian/Ubuntu
+    sudo apt install git vim tmux zsh
+    # macOS
+    brwe install git vim tmux zsh
+    ```
 
-```sh
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-```
++ [`oh-my-zsh`](http://ohmyz.sh)
+    ```sh
+    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    ```
 
 ## Install
 
