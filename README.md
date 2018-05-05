@@ -9,7 +9,7 @@ This is my shell config.
     # Debian/Ubuntu
     sudo apt install git vim tmux zsh
     # macOS
-    brwe install git vim tmux zsh
+    br install git vim tmux zsh
     ```
 
 + [`oh-my-zsh`](http://ohmyz.sh)
