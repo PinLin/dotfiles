@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 
 # set constant
-repo_url="https://github.com/PinLin/.shconf"
 repo_name=".shconf"
+repo_url="https://github.com/PinLin/$repo_name"
 reqirements="git"
 
 # check reqirements
@@ -30,7 +30,7 @@ if command -v vim > /dev/null 2>&1; then
     if [ -f ~/.vimrc ]; then
         mv ~/.vimrc ~/.vimrc.bak
     fi
-    echo "source ~/$repo_name/vim/sample.vimrc" >> ~/.vimrc
+    echo "source ~/$repo_name/config/vim/sample.vimrc" >> ~/.vimrc
 else
     echo Could not find '`'vim'`'.
 fi
@@ -40,7 +40,7 @@ if command -v tmux > /dev/null 2>&1; then
     if [ -f ~/.tmux.conf ]; then
         mv ~/.tmux.conf ~/.tmux.conf.bak
     fi
-    echo "source ~/$repo_name/tmux/sample.tmux.conf" >> ~/.tmux.conf
+    echo "source ~/$repo_name/config/tmux/sample.tmux.conf" >> ~/.tmux.conf
 else
     echo Could not find '`'tmux'`'.
 fi
@@ -51,7 +51,7 @@ if command -v zsh > /dev/null 2>&1; then
         if [ -f ~/.zshrc ]; then
             mv ~/.zshrc ~/.zshrc.bak
         fi
-        echo "source ~/$repo_name/zsh/sample.zshrc" >> ~/.zshrc
+        echo "source ~/$repo_name/config/zsh/sample.zshrc" >> ~/.zshrc
         # install zsh-autosuggestions
         if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
             git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
