@@ -2,22 +2,13 @@
 
 This is my shell configuration.
 
-## Requirements
+## Target
 
-+ `curl` or `wget`
-
-+ `git`
-
++ `git` (for installation)
 + `zsh`
-
 + [`oh-my-zsh`](http://ohmyz.sh)
-    ```sh
-    # Install by `curl`
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    
-    # Install by `wget`
-    sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-    ```
++ `vim`
++ `tmux`
 
 ## Install
 
