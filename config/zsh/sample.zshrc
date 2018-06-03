@@ -107,6 +107,3 @@ function weather {
         echo 'Please input a city name.'
     fi
 }
-
-# pause
-export PATH='$HOME/.pause/bin:$PATH'
