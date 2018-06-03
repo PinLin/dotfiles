@@ -174,38 +174,6 @@ function main {
         echo "source ~/$NAME/config/tmux/sample.tmux.conf" >> ~/.tmux.conf
     fi
 
-    # Check tmux
-    if ! command -v tmux > /dev/null 2>&1; then
-        # Ask for install tmux
-        if askQuestion "Do you want to install tmux?" "yN"; then
-            makeInstall tmux
-            result=$?; if [ $result -ne 0 ]; then return $result; fi
-        fi
-    fi
-    # Config tmux
-    if command -v tmux > /dev/null 2>&1; then
-        if [ -f ~/.tmux.conf ]; then
-            mv ~/.tmux.conf ~/.tmux.conf.bak
-        fi
-        echo "source ~/$NAME/config/tmux/sample.tmux.conf" >> ~/.tmux.conf
-    fi
-
-    # Check tmux
-    if ! command -v tmux > /dev/null 2>&1; then
-        # Ask for install tmux
-        if askQuestion "Do you want to install tmux?" "yN"; then
-            makeInstall tmux
-            result=$?; if [ $result -ne 0 ]; then return $result; fi
-        fi
-    fi
-    # Config tmux
-    if command -v tmux > /dev/null 2>&1; then
-        if [ -f ~/.tmux.conf ]; then
-            mv ~/.tmux.conf ~/.tmux.conf.bak
-        fi
-        echo "source ~/$NAME/config/tmux/sample.tmux.conf" >> ~/.tmux.conf
-    fi
-
     # Check pause
     if ! command -v pause > /dev/null 2>&1; then
         # Ask for install pause
