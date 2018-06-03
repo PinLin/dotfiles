@@ -90,7 +90,7 @@ function main {
         # Ask for install git
         if askQuestion "You must install git, but do you want to install git?" "Yn"; then
             makeInstall git
-            result=$?; if [ $result -ne 0 ]; then return $?; fi
+            result=$?; if [ $result -ne 0 ]; then return $result; fi
         else
             return 0
         fi
@@ -113,7 +113,7 @@ function main {
         # Ask for install zsh
         if askQuestion "You must install zsh, but do you want to install zsh?" "Yn"; then
             makeInstall zsh
-            result=$?; if [ $result -ne 0 ]; then return $?; fi
+            result=$?; if [ $result -ne 0 ]; then return $result; fi
         else
             return 0
         fi
@@ -147,7 +147,7 @@ function main {
         # Ask for install vim
         if askQuestion "Do you want to install vim?" "yN"; then
             makeInstall vim
-            result=$?; if [ $result -ne 0 ]; then return $?; fi
+            result=$?; if [ $result -ne 0 ]; then return $result; fi
         fi
     fi
     # Config vim
@@ -163,7 +163,7 @@ function main {
         # Ask for install tmux
         if askQuestion "Do you want to install tmux?" "yN"; then
             makeInstall tmux
-            result=$?; if [ $result -ne 0 ]; then return $?; fi
+            result=$?; if [ $result -ne 0 ]; then return $result; fi
         fi
     fi
     # Config tmux
@@ -179,7 +179,7 @@ function main {
         # Ask for install tmux
         if askQuestion "Do you want to install tmux?" "yN"; then
             makeInstall tmux
-            result=$?; if [ $result -ne 0 ]; then return $?; fi
+            result=$?; if [ $result -ne 0 ]; then return $result; fi
         fi
     fi
     # Config tmux
@@ -195,7 +195,7 @@ function main {
         # Ask for install tmux
         if askQuestion "Do you want to install tmux?" "yN"; then
             makeInstall tmux
-            result=$?; if [ $result -ne 0 ]; then return $?; fi
+            result=$?; if [ $result -ne 0 ]; then return $result; fi
         fi
     fi
     # Config tmux
