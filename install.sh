@@ -8,34 +8,34 @@ function makeInstall {
     # Check argc
     if [ $# -ge 1 ]; then
         # macOS
-        if isInstalled brew; then
+        if command -v brew > /dev/null 2>&1; then
             brew install $1
             return $?
         
         # Debian / Ubuntu
-        elif isInstalled apt; then
+        elif command -v apt > /dev/null 2>&1; then
             sudo apt install $1 -y
             return $?
 
-        elif isInstalled apt-get; then
+        elif command -v apt-get > /dev/null 2>&1; then
             sudo apt-get install $1 -y
             return $?
 
         # Fedora / CentOS
-        elif isInstalled dnf; then
+        elif command -v dnf > /dev/null 2>&1; then
             sudo dnf -y install $1
             return $?
 
-        elif isInstalled yum; then
+        elif command -v yum > /dev/null 2>&1; then
             sudo yum -y install $1
             return $?
 
         # Embedded
-        elif isInstalled ipkg; then
+        elif command -v ipkg > /dev/null 2>&1; then
             sudo ipkg install $1
             return $?
 
-        elif isInstalled opkg; then
+        elif command -v opkg > /dev/null 2>&1; then
             sudo opkg install $1
             return $?
 
@@ -122,11 +122,8 @@ function main {
     if command -v zsh > /dev/null 2>&1; then
         # Require oh-my-zsh
         if ! [ -d ~/.oh-my-zsh ]; then
-            if isInstalled curl; then
-                sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g')"
-            elif isInstalled wget; then
-                sh -c "$(wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g')"
-            fi
+            sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g')" || \
+            sh -c "$(wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g')"
         fi
         # Install zsh-autosuggestions
         if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
