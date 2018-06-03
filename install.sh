@@ -175,8 +175,16 @@ function main {
     if ! command -v pause > /dev/null 2>&1; then
         # Ask for install pause
         if askQuestion "Do you want to install pause?" "yN"; then
-            # pre-alias pause
-            alias pause='~/.pause/bin/pause'
+
+            # Check gcc
+            if ! command -v gcc > /dev/null 2>&1; then
+                # Ask for install gcc
+                if askQuestion "Do you want to install gcc?" "yN"; then
+                    makeInstall gcc
+                    result=$?; if [ $result -ne 0 ]; then return $result; fi
+                fi
+            fi
+            
             # Install by `curl` or `wget`
             curl -L https://raw.githubusercontent.com/PinLin/pause/master/install.sh | bash || \
             wget -O- https://raw.githubusercontent.com/PinLin/pause/master/install.sh | bash
