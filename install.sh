@@ -206,6 +206,19 @@ function main {
         echo "source ~/$NAME/config/tmux/sample.tmux.conf" >> ~/.tmux.conf
     fi
 
+    # Check pause
+    if ! command -v pause > /dev/null 2>&1; then
+        # Ask for install pause
+        if askQuestion "Do you want to install pause?" "yN"; then
+            # pre-alias pause
+            alias pause='~/.pause/bin/pause'
+            # Install by `curl` or `wget`
+            curl -L https://raw.githubusercontent.com/PinLin/pause/master/install.sh | bash || \
+            wget -O- https://raw.githubusercontent.com/PinLin/pause/master/install.sh | bash
+            result=$?; if [ $result -ne 0 ]; then return $result; fi
+        fi
+    fi
+
     # Finished
     echo
     echo Done! $NAME was installed.

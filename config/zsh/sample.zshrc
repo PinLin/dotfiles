@@ -86,11 +86,20 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+
+
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+
+# alias
 alias l='ls -lh'
 alias ll='ls -alh'
 alias la='ls -a'
 alias poke='touch'
 
+# weather
 function weather {
     if [ "$1" != "" ]; then
         curl wttr.in/~$1
@@ -99,6 +108,5 @@ function weather {
     fi
 }
 
-# zsh-autosuggestions
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
-
+# pause
+export PATH='$HOME/.pause/bin:$PATH'

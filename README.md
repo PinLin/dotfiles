@@ -9,6 +9,7 @@ This is my shell configuration.
 + [`oh-my-zsh`](http://ohmyz.sh)
 + `vim`
 + `tmux`
++ [`pause`](https://github.com/PinLin/pause)
 
 ## Install
 
