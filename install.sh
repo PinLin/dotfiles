@@ -123,9 +123,9 @@ function main {
         # Require oh-my-zsh
         if ! [ -d ~/.oh-my-zsh ]; then
             if isInstalled curl; then
-                curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g' | bash
+                sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g')"
             elif isInstalled wget; then
-                wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g' | bash
+                sh -c "$(wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g')"
             fi
         fi
         # Install zsh-autosuggestions
