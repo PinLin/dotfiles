@@ -10,6 +10,7 @@ This is my shell configuration.
 + `vim`
 + `tmux`
 + [`pause`](https://github.com/PinLin/pause)
++ [`sl`](https://github.com/mtoyoda/sl)
 
 ## Install
 
