@@ -14,7 +14,6 @@ set shiftwidth=4
 set tabstop=4
 
 nnoremap <F2> :<C-U>setlocal lcs=tab:>-,trail:-,eol:$ list! list? <CR>
-set cursorcolumn
 set cursorline
 set foldmethod=syntax
 set number
