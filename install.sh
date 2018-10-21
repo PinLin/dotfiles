@@ -161,8 +161,7 @@ main() {
         if ! [ -d ~/.oh-my-zsh ]; then
             if command -v curl > /dev/null 2>&1; then
                 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
-            fi
-            if command -v wget > /dev/null 2>&1; then
+            else
                 sh -c "$(wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
             fi
         fi
