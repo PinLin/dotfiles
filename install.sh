@@ -184,6 +184,11 @@ main() {
                 sh -c "$(wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
             fi
         fi
+        # Install powerlevel9k
+        if ! [ -d ~/.oh-my-zsh/custom/themes/powerlevel9k ]
+        then
+            git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+        fi
         # Install zsh-autosuggestions
         if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]
         then
