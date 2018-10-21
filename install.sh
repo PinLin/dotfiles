@@ -151,7 +151,8 @@ main() {
 
     # Ask for installing
     todo=''
-    for app in "zsh vim tmux"
+    apps='zsh vim tmux'
+    for app in $apps
     do
         if ! command -v $app > /dev/null 2>&1
         then
