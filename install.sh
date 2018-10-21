@@ -86,36 +86,36 @@ makeInstall() {
 
 
 # Ask for question
-function askQuestion {
-    # Check argc
-    if [ $# -ge 2 ]; then
-        # default yes
-        if [ "$2" == "Yn" ]; then
-            # Display question
-            echo -n "$1 [Y/n] "
-            # Input answer
-            read ans
-            for no in 'n' 'N' 'no' 'No' 'NO' 'nO'; do
-                if [ "$ans" == "$no" ]; then ans="n"; break; fi
-            done
-        fi
-        if [ "$ans" != "n" ]; then ans="y"; fi
-        # default no
-        if [ "$2" == "yN" ]; then
-            # Display question
-            echo -n "$1 [y/N] "
-            # Input answer
-            read ans
-            for yes in 'y' 'Y' 'ye' 'Ye' 'yE' 'YE' 'yes' 'Yes' 'yEs' 'yeS' 'YEs' 'yES' 'YeS' 'YES'; do
-                if [ "$ans" == "$yes" ]; then ans="y"; break; fi
-            done
-        fi
-        if [ "$ans" != "y" ]; then ans="n"; fi
-        # result
-        [ "$ans" == "y" ]
-        return $?
-    else
+askQuestion() {
+    # Check counts of arguments
+    if [ $# -lt 2 ]; then
         return -1
+    fi
+
+    # Ask
+    if [ "$2" = "Yn" ]
+    then
+        # Display question and default yes
+        echo -n $1 [Y/n]' '; read ans
+        case $ans in
+            [Nn*])
+                return 1
+                ;;
+            *)
+                return 0
+                ;;
+        esac
+    else
+        # Display question and default no
+        echo -n $1 [y/N]' '; read ans
+        case $ans in
+            [Yy*]) 
+                return 0
+                ;;
+            *) 
+                return 1
+                ;;
+        esac
     fi
 }
 
