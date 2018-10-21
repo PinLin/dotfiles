@@ -1,7 +1,7 @@
-#! /usr/bin/env bash
+#!/bin/sh
 
-NAME=".shconf"
-URL="https://github.com/PinLin/$NAME"
+REPO_NAME=".shconf"
+REPO_URL="https://github.com/PinLin/$REPO_NAME"
 
 # Install application
 makeInstall() {
@@ -119,47 +119,52 @@ askQuestion() {
     fi
 }
 
-function main {
 
-    # Require git
+main() {
+    # Check git
     if ! command -v git > /dev/null 2>&1; then
-        # Ask for install git
-        if askQuestion "You must install git, but do you want to install git?" "Yn"; then
+        echo "This installer uses git to clone the configs to localhost."
+        if askQuestion "Do you want to install git?" "Yn"; then
             makeInstall git
-            result=$?; if [ $result -ne 0 ]; then return $result; fi
-        else
-            return 0
         fi
     fi
 
-    # Remove local repo if exist
-    if [ -d ~/$NAME ]; then
-        rm -rf ~/$NAME
+    # Remove old one
+    if [ -d ~/$REPO_NAME ]; then
+        rm -rf ~/$REPO_NAME
     fi
-
-    # Clone repo
-    git clone $URL ~/$NAME
+    
+    # Clone repo to local
+    git clone $REPO_URL ~/$REPO_NAME
     if [ $? != 0 ]; then
-        echo "Could not clone $NAME."
+        echo "Failed to clone $REPO_NAME."
         return 1
     fi
 
-    # Require zsh
-    if ! command -v zsh > /dev/null 2>&1; then
-        # Ask for install zsh
-        if askQuestion "You must install zsh, but do you want to install zsh?" "Yn"; then
-            makeInstall zsh
-            result=$?; if [ $result -ne 0 ]; then return $result; fi
+    # Ask for installing
+    todo=''
+    for app in "zsh vim tmux"; do
+        if ! command -v $app > /dev/null 2>&1; then
+            msg="Do you want to install and apply configs about $app?"
         else
-            return 0
+            msg="Do you want to apply configs about $app?"
         fi
-    fi
-    # Config zsh
-    if command -v zsh > /dev/null 2>&1; then
+        if askQuestion "$msg" "Yn"; then
+            todo="$todo $app"
+        fi
+    done
+    makeInstall todo
+    
+    # Apply configs about zsh
+    if echo $todo | grep zsh > /dev/null; then
         # Require oh-my-zsh
         if ! [ -d ~/.oh-my-zsh ]; then
-            sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g')" || \
-            sh -c "$(wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh//g')"
+            if command -v curl > /dev/null 2>&1; then
+                sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
+            fi
+            if command -v wget > /dev/null 2>&1; then
+                sh -c "$(wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
+            fi
         fi
         # Install zsh-autosuggestions
         if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
@@ -172,74 +177,28 @@ function main {
         if [ -f ~/.zshrc ]; then
             mv ~/.zshrc ~/.zshrc.bak
         fi
-        echo "source ~/$NAME/config/zsh/sample.zshrc" >> ~/.zshrc
+        echo "source ~/$REPO_NAME/config/zsh/sample.zshrc" >> ~/.zshrc
     fi
-
-    # Check vim
-    if ! command -v vim > /dev/null 2>&1; then
-        # Ask for install vim
-        if askQuestion "Do you want to install vim?" "yN"; then
-            makeInstall vim
-            result=$?; if [ $result -ne 0 ]; then return $result; fi
-        fi
-    fi
-    # Config vim
-    if command -v vim > /dev/null 2>&1; then
+    
+    # Apply configs about vim
+    if echo $todo | grep vim > /dev/null; then
         if [ -f ~/.vimrc ]; then
             mv ~/.vimrc ~/.vimrc.bak
         fi
-        echo "source ~/$NAME/config/vim/sample.vimrc" >> ~/.vimrc
+        echo "source ~/$REPO_NAME/config/vim/sample.vimrc" >> ~/.vimrc
     fi
-
-    # Check tmux
-    if ! command -v tmux > /dev/null 2>&1; then
-        # Ask for install tmux
-        if askQuestion "Do you want to install tmux?" "yN"; then
-            makeInstall tmux
-            result=$?; if [ $result -ne 0 ]; then return $result; fi
-        fi
-    fi
-    # Config tmux
-    if command -v tmux > /dev/null 2>&1; then
+    
+    # Apply configs about tmux
+    if echo $todo | grep tmux > /dev/null; then
         if [ -f ~/.tmux.conf ]; then
             mv ~/.tmux.conf ~/.tmux.conf.bak
         fi
-        echo "source ~/$NAME/config/tmux/sample.tmux.conf" >> ~/.tmux.conf
+        echo "source ~/$REPO_NAME/config/tmux/sample.tmux.conf" >> ~/.tmux.conf
     fi
-
-    # Check pause
-    if ! command -v pause > /dev/null 2>&1; then
-        # Ask for install pause
-        if askQuestion "Do you want to install pause?" "yN"; then
-
-            # Check gcc
-            if ! command -v gcc > /dev/null 2>&1; then
-                # Ask for install gcc
-                if askQuestion "Do you want to install gcc?" "yN"; then
-                    makeInstall gcc
-                    result=$?; if [ $result -ne 0 ]; then return $result; fi
-                fi
-            fi
-            
-            # Install by `curl` or `wget`
-            curl -L https://raw.githubusercontent.com/PinLin/pause/master/install.sh | bash || \
-            wget -O- https://raw.githubusercontent.com/PinLin/pause/master/install.sh | bash
-            result=$?; if [ $result -ne 0 ]; then return $result; fi
-        fi
-    fi
-
-    # Check sl
-    if ! command -v sl > /dev/null 2>&1; then
-        # Ask for install sl
-        if askQuestion "Do you want to install sl?" "yN"; then
-            makeInstall sl
-            result=$?; if [ $result -ne 0 ]; then return $result; fi
-        fi
-    fi
-
+    
     # Finished
     echo
-    echo Done! $NAME was installed.
+    echo Done! $REPO_NAME was installed.
 }
 
 main
