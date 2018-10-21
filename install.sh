@@ -166,7 +166,7 @@ main() {
             todo="$todo $app"
         fi
     done
-    makeInstall todo
+    makeInstall $todo
     
     # Apply configs about zsh
     if echo $todo | grep zsh > /dev/null
