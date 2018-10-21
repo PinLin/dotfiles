@@ -94,5 +94,10 @@ alias l='ls -lh'
 alias ll='ls -alh'
 alias la='ls -a'
 
+# powerlevel9k
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs status time)
+
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'

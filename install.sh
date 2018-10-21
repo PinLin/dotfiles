@@ -204,6 +204,7 @@ main() {
             mv ~/.zshrc ~/.zshrc.bak
         fi
         echo "source ~/$REPO_NAME/config/zsh/sample.zshrc" >> ~/.zshrc
+        echo "DEFAULT_USER=$USER" >> ~/.zshrc
     fi
     
     # Apply configs about vim
