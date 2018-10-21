@@ -100,7 +100,7 @@ askQuestion() {
     if [ "$2" = "Yn" ]
     then
         # Display question and default yes
-        echo -n $1 [Y/n]' '; read ans
+        printf "$1 [Y/n] "; read ans
         case $ans in
             [Nn*])
                 return 1
@@ -111,7 +111,7 @@ askQuestion() {
         esac
     else
         # Display question and default no
-        echo -n $1 [y/N]' '; read ans
+        printf "$1 [y/N] "; read ans
         case $ans in
             [Yy*]) 
                 return 0
