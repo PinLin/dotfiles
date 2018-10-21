@@ -13,6 +13,8 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
+POWERLEVEL9K_MODE='nerdfont-complete'
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -95,7 +97,6 @@ alias ll='ls -alh'
 alias la='ls -a'
 
 # powerlevel9k
-POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs status time)
 
