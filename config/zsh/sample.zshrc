@@ -91,7 +91,6 @@ source $ZSH/oh-my-zsh.sh
 alias l='ls -lh'
 alias ll='ls -alh'
 alias la='ls -a'
-alias poke='touch'
 
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
