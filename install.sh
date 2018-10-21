@@ -6,7 +6,8 @@ REPO_URL="https://github.com/PinLin/$REPO_NAME"
 # Install application
 makeInstall() {
     # Check counts of arguments
-    if [ $# -lt 1 ]; then
+    if [ $# -lt 1 ]
+    then
         return -1
     fi
     
@@ -68,13 +69,15 @@ makeInstall() {
             ;;
 
             *)
-                if command -v ipkg > /dev/null 2>&1; then
+                if command -v ipkg > /dev/null 2>&1
+                then
                     # Embedded Device with ipkg
                     sudo ipkg install $1
                     return $?
                 fi
 
-                if command -v opkg > /dev/null 2>&1; then
+                if command -v opkg > /dev/null 2>&1
+                then
                     # Embedded Device with opkg
                     sudo opkg install $1
                     return $?
@@ -88,7 +91,8 @@ makeInstall() {
 # Ask for question
 askQuestion() {
     # Check counts of arguments
-    if [ $# -lt 2 ]; then
+    if [ $# -lt 2 ]
+    then
         return -1
     fi
 
@@ -122,74 +126,92 @@ askQuestion() {
 
 main() {
     # Check git
-    if ! command -v git > /dev/null 2>&1; then
+    if ! command -v git > /dev/null 2>&1
+    then
         echo "This installer uses git to clone the configs to localhost."
-        if askQuestion "Do you want to install git?" "Yn"; then
+        if askQuestion "Do you want to install git?" "Yn"
+        then
             makeInstall git
         fi
     fi
 
     # Remove old one
-    if [ -d ~/$REPO_NAME ]; then
+    if [ -d ~/$REPO_NAME ]
+    then
         rm -rf ~/$REPO_NAME
     fi
     
     # Clone repo to local
     git clone $REPO_URL ~/$REPO_NAME
-    if [ $? != 0 ]; then
+    if [ $? != 0 ]
+    then
         echo "Failed to clone $REPO_NAME."
         return 1
     fi
 
     # Ask for installing
     todo=''
-    for app in "zsh vim tmux"; do
-        if ! command -v $app > /dev/null 2>&1; then
+    for app in "zsh vim tmux"
+    do
+        if ! command -v $app > /dev/null 2>&1
+        then
             msg="Do you want to install and apply configs about $app?"
         else
             msg="Do you want to apply configs about $app?"
         fi
-        if askQuestion "$msg" "Yn"; then
+
+        if askQuestion "$msg" "Yn"
+        then
             todo="$todo $app"
         fi
     done
     makeInstall todo
     
     # Apply configs about zsh
-    if echo $todo | grep zsh > /dev/null; then
+    if echo $todo | grep zsh > /dev/null
+    then
         # Require oh-my-zsh
-        if ! [ -d ~/.oh-my-zsh ]; then
-            if command -v curl > /dev/null 2>&1; then
+        if ! [ -d ~/.oh-my-zsh ]
+        then
+            if command -v curl > /dev/null 2>&1
+            then
                 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
             else
                 sh -c "$(wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
             fi
         fi
         # Install zsh-autosuggestions
-        if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
+        if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]
+        then
             git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
         fi
         # Install zsh-syntax-highlighting
-        if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
+        if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]
+        then
             git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
         fi
-        if [ -f ~/.zshrc ]; then
+        if [ -f ~/.zshrc ]
+        then
             mv ~/.zshrc ~/.zshrc.bak
         fi
         echo "source ~/$REPO_NAME/config/zsh/sample.zshrc" >> ~/.zshrc
     fi
     
     # Apply configs about vim
-    if echo $todo | grep vim > /dev/null; then
-        if [ -f ~/.vimrc ]; then
+    if echo $todo | grep vim > /dev/null
+    then
+        if [ -f ~/.vimrc ]
+        then
             mv ~/.vimrc ~/.vimrc.bak
         fi
         echo "source ~/$REPO_NAME/config/vim/sample.vimrc" >> ~/.vimrc
     fi
     
     # Apply configs about tmux
-    if echo $todo | grep tmux > /dev/null; then
-        if [ -f ~/.tmux.conf ]; then
+    if echo $todo | grep tmux > /dev/null
+    then
+        if [ -f ~/.tmux.conf ]
+        then
             mv ~/.tmux.conf ~/.tmux.conf.bak
         fi
         echo "source ~/$REPO_NAME/config/tmux/sample.tmux.conf" >> ~/.tmux.conf
