@@ -4,50 +4,86 @@ NAME=".shconf"
 URL="https://github.com/PinLin/$NAME"
 
 # Install application
-function makeInstall {
-    # Check argc
-    if [ $# -ge 1 ]; then
-        # macOS
-        if command -v brew > /dev/null 2>&1; then
-            brew install $1
-            return $?
-        
-        # Debian / Ubuntu
-        elif command -v apt > /dev/null 2>&1; then
-            sudo apt install $1 -y
-            return $?
-
-        elif command -v apt-get > /dev/null 2>&1; then
-            sudo apt-get install $1 -y
-            return $?
-
-        # Fedora / CentOS
-        elif command -v dnf > /dev/null 2>&1; then
-            sudo dnf -y install $1
-            return $?
-
-        elif command -v yum > /dev/null 2>&1; then
-            sudo yum -y install $1
-            return $?
-
-        # Embedded
-        elif command -v ipkg > /dev/null 2>&1; then
-            sudo ipkg install $1
-            return $?
-
-        elif command -v opkg > /dev/null 2>&1; then
-            sudo opkg install $1
-            return $?
-
-        # None
-        else
-            return 87
-
-        fi
-    else
+makeInstall() {
+    # Check counts of arguments
+    if [ $# -lt 1 ]; then
         return -1
     fi
+    
+    # Judge which is the package manager we used
+    kernel=$(uname -s)
+    if [ "$kernel" = "Darwin" ]
+    then
+        if command -v brew > /dev/null 2>&1
+        then
+            # macOS with brew
+            brew install $1
+            return $?
+        else
+            echo "You need to install Homebrew on your macOS before runing this script."
+            echo See this: https://brew.sh
+            return 87
+        fi
+        
+    elif [ "$kernel" = "FreeBSD" ]
+    then
+        if command -v pkg > /dev/null 2>&1
+        then
+            # FreeBSD with pkg
+            sudo pkg install -y $1
+            return $?
+        else
+            echo "You need to install PKGNG on your FreeBSD before runing this script."
+            echo See this: https://wiki.freebsd.org/pkgng
+            return 87
+        fi
+        
+    elif [ "$kernel" = "Linux" ]
+    then
+        if command -v lsb_release > /dev/null 2>&1
+        then
+            os=$(echo $(lsb_release -i | cut -d ':' -f 2))
+        else
+            os=''
+        fi
+
+        case $os in
+            "Debian"|"Ubuntu")
+                # Debian/Ubuntu with apt-get
+                sudo apt-get install -y $1
+                return $?
+            ;;
+
+            "Fedora"|"CentOS")
+                if command -v dnf > /dev/null 2>&1
+                then
+                    # Fedora/CentOS with dnf
+                    sudo dnf install -y $1
+                    return $?
+                else
+                    # Fedora/CentOS with yum
+                    sudo yum install -y $1
+                    return $?
+                fi
+            ;;
+
+            *)
+                if command -v ipkg > /dev/null 2>&1; then
+                    # Embedded Device with ipkg
+                    sudo ipkg install $1
+                    return $?
+                fi
+
+                if command -v opkg > /dev/null 2>&1; then
+                    # Embedded Device with opkg
+                    sudo opkg install $1
+                    return $?
+                fi
+            ;;
+        esac
+    fi 
 }
+
 
 # Ask for question
 function askQuestion {
