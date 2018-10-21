@@ -22,4 +22,4 @@ My shell configuration.
     sh -c "$(wget -O- https://raw.githubusercontent.com/PinLin/.shconf/master/install.sh)"
     ```
 
-2. Apply the [font](https://github.com/PinLin/.shconf/tree/master/font) that needed by Powerline Displaying.
+2. Apply the [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) that needed by special character.
