@@ -99,11 +99,3 @@ alias ll='ls -alh'
 alias la='ls -a'
 alias poke='touch'
 
-# weather
-function weather {
-    if [ "$1" != "" ]; then
-        curl wttr.in/~$1
-    else
-        echo 'Please input a city name.'
-    fi
-}
