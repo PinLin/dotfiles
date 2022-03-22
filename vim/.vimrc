@@ -16,7 +16,6 @@ set tabstop=4
 nnoremap <F2> :<C-U>setlocal lcs=tab:>-,trail:-,eol:$ list! list? <CR>
 set cursorline
 set foldmethod=syntax
-set number
 set ruler
 set showcmd
 set showmode
