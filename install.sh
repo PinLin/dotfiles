@@ -1,4 +1,5 @@
 #!/bin/sh
+GIT_REPO=https://github.com/PinLin/dotfiles
 INSTALL_DIR=${INSTALL_DIR:-"$HOME/.pinlin-dotfiles"}
 
 setupZsh() {
@@ -8,35 +9,40 @@ setupZsh() {
         return $(false)
     fi
 
-    # Install oh-my-zsh
-    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom} ]; then
-        export RUNZSH=no
+    if [ -f $HOME/.zshrc ]; then
+        cp $HOME/.zshrc $HOME/.zshrc.$(date '+%Y%m%d%H%M%S').bak
+    fi
 
+    # Install zim
+    if ! [ -d ${ZIM_HOME:-$HOME/.zim} ]; then
         if command -v curl > /dev/null 2>&1; then
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+            curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
         else
-            sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+            wget -nv -O - https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
         fi
     fi
     # Install powerlevel10k
-    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]; then
-        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    fi
-    # Install zsh-autosuggestions
-    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    fi
-    # Install zsh-syntax-highlighting
-    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    fi
+    cat $HOME/.zimrc | grep "romkatv/powerlevel10k" > /dev/null
+    if [ $? -ne 0 ]; then
+        echo "# Powerlevel10k" >> $HOME/.zimrc
+        echo "zmodule romkatv/powerlevel10k --use degit" >> $HOME/.zimrc
+        zsh ${ZIM_HOME:-$HOME/.zim}/zimfw.zsh install
 
-    if [ -f $HOME/.zshrc ]; then
-        mv $HOME/.zshrc $HOME/.zshrc.$(date '+%Y%m%d%H%M%S').bak
+        mv $HOME/.zshrc $HOME/.zshrc.tmp
+        echo '# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.' >> $HOME/.zshrc
+        echo '# Initialization code that may require console input (password prompts, [y/n]' >> $HOME/.zshrc
+        echo '# confirmations, etc.) must go above this block; everything else may go below.' >> $HOME/.zshrc
+        echo 'if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then' >> $HOME/.zshrc
+        echo '  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"' >> $HOME/.zshrc
+        echo 'fi' >> $HOME/.zshrc
+        echo '' >> $HOME/.zshrc
+        cat $HOME/.zshrc.tmp >> $HOME/.zshrc
+        rm $HOME/.zshrc.tmp
+
+        echo "export DOTFILES=$INSTALL_DIR" >> $HOME/.zshrc
+        echo "source $INSTALL_DIR/zsh/.zshrc" >> $HOME/.zshrc
+        echo "DEFAULT_USER=$USER" >> $HOME/.zshrc
     fi
-    echo "export DOTFILES=$INSTALL_DIR" >> $HOME/.zshrc
-    echo "source $INSTALL_DIR/zsh/.zshrc" >> $HOME/.zshrc
-    echo "DEFAULT_USER=$USER" >> $HOME/.zshrc
 }
 
 setupVim() {
@@ -49,6 +55,7 @@ setupVim() {
     if [ -f $HOME/.vimrc ]; then
         mv $HOME/.vimrc $HOME/.vimrc.$(date '+%Y%m%d%H%M%S').bak
     fi
+
     echo "source $INSTALL_DIR/vim/.vimrc" >> $HOME/.vimrc
 }
 
@@ -62,6 +69,7 @@ setupTmux() {
     if [ -f $HOME/.tmux.conf ]; then
         mv $HOME/.tmux.conf $HOME/.tmux.conf.$(date '+%Y%m%d%H%M%S').bak
     fi
+
     echo "source $INSTALL_DIR/tmux/.tmux.conf" >> $HOME/.tmux.conf
 }
 
@@ -78,7 +86,7 @@ main() {
     fi
 
     # Clone dotfiles repo
-    git clone https://github.com/PinLin/dotfiles $INSTALL_DIR
+    git clone $GIT_REPO $INSTALL_DIR
     if [ $? != 0 ]; then
         echo "Failed to clone the repository."
         return 1
