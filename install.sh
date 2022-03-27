@@ -1,6 +1,8 @@
 #!/bin/sh
-GIT_REPO=https://github.com/PinLin/dotfiles
+GIT_REPO=${GIT_REPO:-"https://github.com/PinLin/dotfiles"}
 INSTALL_DIR=${INSTALL_DIR:-"$HOME/.pinlin-dotfiles"}
+
+backupTime=$(date '+%Y%m%d%H%M%S')
 
 setupZsh() {
     # Check if zsh is installed
@@ -10,11 +12,13 @@ setupZsh() {
     fi
 
     if [ -f $HOME/.zshrc ]; then
-        cp $HOME/.zshrc $HOME/.zshrc.$(date '+%Y%m%d%H%M%S').bak
+        cp $HOME/.zshrc $HOME/.zshrc.${backupTime}.bak
     fi
 
     # Install zim
     if ! [ -d ${ZIM_HOME:-$HOME/.zim} ]; then
+        rm $HOME/.zshrc
+
         if command -v curl > /dev/null 2>&1; then
             curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
         else
@@ -53,7 +57,7 @@ setupVim() {
     fi
 
     if [ -f $HOME/.vimrc ]; then
-        mv $HOME/.vimrc $HOME/.vimrc.$(date '+%Y%m%d%H%M%S').bak
+        mv $HOME/.vimrc $HOME/.vimrc.${backupTime}.bak
     fi
 
     echo "source $INSTALL_DIR/vim/.vimrc" >> $HOME/.vimrc
@@ -67,7 +71,7 @@ setupTmux() {
     fi
 
     if [ -f $HOME/.tmux.conf ]; then
-        mv $HOME/.tmux.conf $HOME/.tmux.conf.$(date '+%Y%m%d%H%M%S').bak
+        mv $HOME/.tmux.conf $HOME/.tmux.conf.${backupTime}.bak
     fi
 
     echo "source $INSTALL_DIR/tmux/.tmux.conf" >> $HOME/.tmux.conf
