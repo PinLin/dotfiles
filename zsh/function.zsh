@@ -4,7 +4,7 @@ update-dotfiles() {
     cd -
 }
 
-password() {
+getpass() {
     echo -n "Password: " > /dev/stderr
     read -s
     echo $REPLY
