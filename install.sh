@@ -45,7 +45,7 @@ setupZsh() {
 
         echo "export DOTFILES=$INSTALL_DIR" >> $HOME/.zshrc
         echo "source $INSTALL_DIR/zsh/.zshrc" >> $HOME/.zshrc
-        echo "DEFAULT_USER=$USER" >> $HOME/.zshrc
+        #echo "DEFAULT_USER=$USER" >> $HOME/.zshrc
     fi
 }
 
