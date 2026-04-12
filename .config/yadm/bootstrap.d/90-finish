@@ -1,0 +1,11 @@
+#!/bin/bash
+cat <<'INNER'
+====================================================================
+Bootstrap complete.
+
+Next steps:
+  1. Start a new zsh session:  exec zsh
+  2. zim will install its modules on first launch (~1 minute)
+  3. (optional) Create ~/.zshrc.local for machine-specific settings
+====================================================================
+INNER

@@ -1,0 +1,20 @@
+[user]
+	name = Pin Lin
+	email = pinlin945@gmail.com
+[alias]
+    lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	co = checkout
+	br = branch
+	cm = commit -m
+	st = status
+	ss = stash
+	ci = commit
+[core]
+    excludesFile = ~/.gitignore_global
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main

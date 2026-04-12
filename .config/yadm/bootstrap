@@ -1,0 +1,27 @@
+#!/bin/sh
+# yadm bootstrap dispatcher
+# Executes ~/.config/yadm/bootstrap.d/* in lexicographic order.
+# yadm alternates filters which scripts are present in bootstrap.d/.
+set -e
+
+YADM_BOOTSTRAP_D="${HOME}/.config/yadm/bootstrap.d"
+
+if [ ! -d "${YADM_BOOTSTRAP_D}" ]; then
+    echo "Error: ${YADM_BOOTSTRAP_D} not found" >&2
+    exit 1
+fi
+
+for script in "${YADM_BOOTSTRAP_D}"/*; do
+    [ -e "${script}" ] || continue
+    # Skip yadm alternate source files (##-suffixed); yadm symlinks
+    # the appropriate one without the ## suffix when it matches.
+    case "$(basename "${script}")" in *'##'*) continue ;; esac
+    if [ -x "${script}" ]; then
+        echo "==> Running $(basename "${script}")"
+        "${script}"
+    else
+        echo "-- Skipping $(basename "${script}") (not executable)"
+    fi
+done
+
+echo "==> All bootstrap steps completed."

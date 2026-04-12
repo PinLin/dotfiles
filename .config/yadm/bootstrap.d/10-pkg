@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+TOOLS="git zsh tmux vim"
+MISSING=""
+for tool in $TOOLS; do
+    command -v "$tool" >/dev/null 2>&1 || MISSING="$MISSING $tool"
+done
+
+if [ -z "$MISSING" ]; then
+    echo "==> 工具齊全"
+else
+    echo "==> 缺:$MISSING (要的話自己裝)"
+fi

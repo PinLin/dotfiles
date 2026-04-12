@@ -1,0 +1,17 @@
+# chip: tmux 1.9
+set -g default-terminal "screen-256color"
+
+set -g prefix C-a
+bind C-a send-prefix
+
+set -g base-index 1
+setw -g pane-base-index 1
+set -g renumber-windows on
+
+set -g history-limit 50000
+set -sg escape-time 10
+
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+
+bind r source-file ~/.tmux.conf \; display "Reloaded"

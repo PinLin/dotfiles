@@ -1,0 +1,11 @@
+# Cross-shell helpers (sourced by both .zshrc and .bashrc)
+
+alias l='ls -lh'
+alias ll='ls -alh'
+
+getpass() {
+    echo -n "Password: " > /dev/stderr
+    read -s
+    echo $REPLY
+    echo > /dev/stderr
+}
