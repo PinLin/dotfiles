@@ -1,8 +1,6 @@
-# Ensure a UTF-8 locale. macOS <26 doesn't set one (Apple added a C.UTF-8
-# fallback to /etc/zprofile only in macOS 26); without it, an ssh/tmux session
-# that doesn't get LANG forwarded falls back to US-ASCII and p10k/powerline breaks.
-# Use en_US.UTF-8 — C.UTF-8 is not a valid locale on older macOS (<26).
+# UTF-8 fallback for ssh/tmux on macOS <26 (C.UTF-8 invalid there)
 [ -z "$LANG" ] && export LANG=en_US.UTF-8
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
