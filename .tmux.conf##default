@@ -7,7 +7,7 @@ set -g renumber-windows on
 
 set -g history-limit 50000
 set -sg escape-time 10
-set -g focus-events on
+set -g focus-events off
 set -g mouse on
 
 # OSC 52 → 本地 terminal 剪貼簿
